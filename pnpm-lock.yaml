@@ -55,6 +55,15 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  apps/https-server:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/prisma
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+
   apps/web:
     dependencies:
       '@repo/db':
@@ -94,6 +103,15 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
+
+  apps/ws-server:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/prisma
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
 
   packages/eslint-config:
     devDependencies:
