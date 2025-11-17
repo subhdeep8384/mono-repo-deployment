@@ -1,3 +1,9 @@
-import { PrismaClient } from "../generated/prisma/client";
+import dotenv from "dotenv"
+dotenv.config()
+import { PrismaClient } from "@prisma/client"
 
-export const client = new PrismaClient()
+
+
+const client = new PrismaClient()
+export default client
+
