@@ -20,7 +20,7 @@ jobs:
         run: npm i -g pnpm
       - name: Deploy to EC2 via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@13.218.127.112 << 'EOF'
+          ssh -i ssh_key ubuntu@13.218.127.112 
             cd mono-repo-deployment
             git pull
             pnpm install
