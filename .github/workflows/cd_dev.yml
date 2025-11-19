@@ -10,20 +10,14 @@ jobs:
     name: Deploy everything to the dev server
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Install SSH key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
           chmod 600 ssh_key
-
-      - name: Install pnpm
-        run: npm i -g pnpm
-
-      - name: checking the build
-        run: |
-          pnpm install
-          pnpm run build
-          pm2 restart all
+      
+      - name: SSH to the server 
+        run: ssh -i ssh_key ubuntu@13.222.133.210
+      
+      -name: show all files
+        run: ls
           
