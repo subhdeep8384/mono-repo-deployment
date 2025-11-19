@@ -1,0 +1,21 @@
+name: Deploy on dev server
+on:
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  Redeploy:
+    name: Deploy everything to the dev server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSh into the server
+      - run: |
+          echo ${{secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
+          ssh -i ~/ssh_key ubuntu@13.218.127.112
+          cd mono-repo-deployment/ && git pull
+          pnpm install
+          pnpm run build
+          pm2 restart all
+
