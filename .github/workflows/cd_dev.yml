@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+  uses: ubuntu-latest
   redeploy:
     name: Deploy everything to the dev server
     runs-on: ubuntu-latest
