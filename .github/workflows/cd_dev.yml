@@ -18,6 +18,6 @@ jobs:
       - name: SSH to the server 
         run: ssh -i ssh_key ubuntu@13.222.133.210
       
-      -name: show all files
+      - name: show all files
         run: ls
           
