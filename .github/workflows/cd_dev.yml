@@ -1,21 +1,36 @@
 name: Deploy on dev server
+
 on:
   pull_request:
     branches:
-      - "main"
+      - main
 
 jobs:
-  Redeploy:
+  redeploy:
     name: Deploy everything to the dev server
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSh into the server
-      - run: |
-          echo ${{secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
-          ssh -i ~/ssh_key ubuntu@13.218.127.112
-          cd mono-repo-deployment/ && git pull
-          pnpm install
-          pnpm run build
-          pm2 restart all
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Install SSH key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
+          chmod 600 ssh_key
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Deploy to EC2 via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@13.218.127.112 << 'EOF'
+            cd mono-repo-deployment
+
+            git pull
+
+            pnpm install
+            pnpm run build
+
+            pm2 restart all
+          EOF
