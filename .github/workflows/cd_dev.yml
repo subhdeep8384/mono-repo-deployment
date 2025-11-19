@@ -15,8 +15,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
           chmod 600 ssh_key
       
-      - name: SSH to the server 
-        run: ssh -i ssh_key ubuntu@13.222.133.210
+      - name: SSH into server
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt -i ssh_key ubuntu@13.222.133.210 "ls -la"
+
       
       - name: show all files
         run: ls
